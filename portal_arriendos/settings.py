@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'portal_arriendos.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'desafiodb',
+        'NAME': 'portal_arriendos',
         'USER': db_user,
         'PASSWORD': db_password,
         'HOST': 'localhost', #127.0.0.1
