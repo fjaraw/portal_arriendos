@@ -7,4 +7,5 @@ class Command(BaseCommand):
         print('Testeo de programa')
         #crear_user(123456789, 'John', 'Doe', 'johndoe@xyz.com', '1234', 'Hill St. 1010', '+56911223344')
         #crear_user(123456780, 'Jane', 'Doe', 'janedoe@xyz.com', '1234', 'Hill St. 1010', '+56911223344')
+        eliminar_user('123456780')
         print('Operación realizada.')
