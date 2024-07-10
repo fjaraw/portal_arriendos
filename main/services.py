@@ -21,8 +21,24 @@ def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamie
         propietario = propietario
     )
     inmueble.save()
-def editar_inmueble(*args):
-    pass
+def editar_inmueble(inmueble_id, nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, bagnos, direccion, tipo_de_inmueble, precio, precio_uf, comuna, rut_propietario):
+    inmueble = Inmueble.objects.get(id = inmueble_id)
+    comuna = Comuna.objects.get(nombre=comuna)
+    propietario = User.objects.get(username=rut_propietario)
+    inmueble.nombre = nombre
+    inmueble.descripcion = descripcion
+    inmueble.m2_construidos = m2_construidos
+    inmueble.m2_totales = m2_totales
+    inmueble.estacionamientos = estacionamientos
+    inmueble.habitaciones = habitaciones
+    inmueble.bagnos = bagnos
+    inmueble.direccion = direccion
+    inmueble.tipo_de_inmueble = tipo_de_inmueble
+    inmueble.precio = precio
+    inmueble.precio_uf = precio_uf
+    inmueble.comuna = comuna
+    inmueble.propietario = propietario
+    inmueble.save()
 def eliminar_inmueble(inmueble_id):
     inmueble = Inmueble.objects.get(id = inmueble_id)
     inmueble.delete()
