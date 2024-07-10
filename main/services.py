@@ -24,7 +24,8 @@ def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamie
 def editar_inmueble(*args):
     pass
 def eliminar_inmueble(inmueble_id):
-    pass
+    inmueble = Inmueble.objects.get(id = inmueble_id)
+    inmueble.delete()
 def crear_user(rut, first_name, last_name, email, password, pass_confirm, direccion, telefono=None) -> list[bool, str]:
     if password != pass_confirm:
         return False, 'Contraseñas no coinciden.'
