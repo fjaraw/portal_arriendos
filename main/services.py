@@ -2,8 +2,25 @@ from main.models import Comuna, Inmueble, UserProfile
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 
-def crear_inmueble(*args):
-    pass
+def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, bagnos, direccion, tipo_de_inmueble, precio, precio_uf, comuna, rut_propietario):
+    comuna = Comuna.objects.get(nombre=comuna)
+    propietario = User.objects.get(username=rut_propietario)
+    inmueble = Inmueble.objects.create(
+        nombre = nombre,
+        descripcion = descripcion,
+        m2_construidos = m2_construidos,
+        m2_totales = m2_totales,
+        estacionamientos = estacionamientos,
+        habitaciones = habitaciones,
+        bagnos = bagnos,
+        direccion = direccion,
+        tipo_de_inmueble = tipo_de_inmueble,
+        precio = precio,
+        precio_uf = precio_uf,
+        comuna = comuna,
+        propietario = propietario
+    )
+    inmueble.save()
 def editar_inmueble(*args):
     pass
 def eliminar_inmueble(inmueble_id):
