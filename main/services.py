@@ -27,8 +27,19 @@ def crear_user(rut, first_name, last_name, email, password, pass_confirm, direcc
         user = user
         )
     return True
-def editar_user(*args):
-    pass
+def editar_user(username, first_name, last_name, email, password, direccion, telefono=None) -> list[bool, str]:
+    #Buscamos el 'user' correspondiente
+    user = User.objects.get(username=username)
+    user.first_name = first_name
+    user.last_name = last_name
+    user.email = email
+    user.set_password(password) #Mantiene encriptación de contraseña
+    user.save()
+    #buscamos el 'user_profile'
+    user_profile = UserProfile.objects.get(user=user)
+    user_profile.direccion = direccion
+    user_profile.telefono = telefono
+    user_profile.save()
 def eliminar_user(rut):
     usuario = User.objects.get(username=rut)
     usuario.delete()
