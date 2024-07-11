@@ -9,9 +9,14 @@ class UserProfile(models.Model):
     direccion = models.CharField(max_length=255)
     telefono = models.CharField(max_length=255, null=True)
 
-#class Region (pendiente)
-class Comuna(models.Model):
+class Region(models.Model):
+    cod = models.CharField(max_length=2, primary_key=True)
     nombre = models.CharField(max_length=255)
+    
+class Comuna(models.Model):
+    cod = models.CharField(max_length=5, primary_key=True)
+    nombre = models.CharField(max_length=255)
+    region = models.ForeignKey(Region, related_name='comunas', on_delete=models.RESTRICT)
     def __str__(self):
         return f'{self.nombre}'
 
@@ -27,7 +32,6 @@ class Inmueble(models.Model):
     direccion = models.CharField(max_length=255)
     tipo_de_inmueble = models.CharField(max_length=255,choices=tipo_inmueble)
     precio = models.IntegerField(validators=[MinValueValidator(1000)], null=True)
-    precio_uf = models.FloatField(validators=[MinValueValidator(1.0)], null=True)
     #llaves foráneas
     comuna = models.ForeignKey(Comuna, related_name='inmuebles', on_delete=models.RESTRICT)
     propietario = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='inmuebles')

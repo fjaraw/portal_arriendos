@@ -2,8 +2,8 @@ from main.models import Comuna, Inmueble, UserProfile
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 
-def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, bagnos, direccion, tipo_de_inmueble, precio, precio_uf, comuna, rut_propietario):
-    comuna = Comuna.objects.get(nombre=comuna)
+def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, bagnos, direccion, tipo_de_inmueble, precio, cod_comuna, rut_propietario):
+    comuna = Comuna.objects.get(cod=cod_comuna)
     propietario = User.objects.get(username=rut_propietario)
     inmueble = Inmueble.objects.create(
         nombre = nombre,
@@ -16,14 +16,13 @@ def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamie
         direccion = direccion,
         tipo_de_inmueble = tipo_de_inmueble,
         precio = precio,
-        precio_uf = precio_uf,
         comuna = comuna,
         propietario = propietario
     )
     inmueble.save()
-def editar_inmueble(inmueble_id, nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, bagnos, direccion, tipo_de_inmueble, precio, precio_uf, comuna, rut_propietario):
+def editar_inmueble(inmueble_id, nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, bagnos, direccion, tipo_de_inmueble, precio, cod_comuna, rut_propietario):
     inmueble = Inmueble.objects.get(id = inmueble_id)
-    comuna = Comuna.objects.get(nombre=comuna)
+    comuna = Comuna.objects.get(nombre=cod_comuna)
     propietario = User.objects.get(username=rut_propietario)
     inmueble.nombre = nombre
     inmueble.descripcion = descripcion
@@ -35,7 +34,6 @@ def editar_inmueble(inmueble_id, nombre, descripcion, m2_construidos, m2_totales
     inmueble.direccion = direccion
     inmueble.tipo_de_inmueble = tipo_de_inmueble
     inmueble.precio = precio
-    inmueble.precio_uf = precio_uf
     inmueble.comuna = comuna
     inmueble.propietario = propietario
     inmueble.save()

@@ -1,0 +1,11 @@
+username;first_name;last_name;email;password;password_confirm;direccion
+12345678-9;Gandalf;El Gris;gandalf@mail.com;1234;1234;Calle de los Magos, 42
+98765432-1;Frodo;Bolson;frodo@mail.com;1234;1234;Camino del Anillo, 7
+23456789-0;Aragorn;Elessar;aragorn@mail.com;1234;1234;Rivendel, 1
+34567890-1;Legolas;Verdehoja;legolas@mail.com;1234;1234;Bosque Negro, 5
+45678901-2;Gimli;Hacha de Piedra;gimli@mail.com;1234;1234;Moria, 3
+56789012-3;Bilbo;Bolsón;bilbo@mail.com;1234;1234;Bolsón Cerrado, 11
+67890123-4;Samwise;Gamgee;samwise@mail.com;1234;1234;La Comarca, 9
+78901234-5;Sauron;Ojo de Fuego;sauron@mail.com;1234;1234;Monte del Destino, 1
+89012345-6;Éowyn;Dama de Rohan;eowyn@mail.com;1234;1234;Edoras, 12
+90123456-7;Gollum;Smeagol;gollum@mail.com;1234;1234;Cueva de los Goblins, 8

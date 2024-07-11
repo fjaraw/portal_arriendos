@@ -1,0 +1,11 @@
+nombre;descripcion;m2_construidos;m2_totales;estacionamientos;habitaciones;baños;direccion;tipo_inmueble;precio_mensual_arriendo;comuna_cod;propietario_rut
+La Morada del Mago;Acogedora torre con vistas al valle;120;150;1;3;2;Cima de la Colina, 7;Casa;1000;12345;12345678-9
+El Refugio del Guerrero;Espaciosa casa fortificada;200;250;2;4;3;Camino del Héroe, 12;Casa;1500;23456;23456789-0
+El Bosque Encantado;Encantadora cabaña rodeada de árboles;80;100;0;2;1;Claro del Arcoiris, 3;Cabaña;800;34567;34567890-1
+La Cueva del Enano;Alojamiento subterráneo con piedra vista;150;180;0;3;2;Profundidades de la Montaña, 5;Apartamento;1200;45678;45678901-2
+La Posada del Bardo;Posada acogedora con taberna adjunta;300;350;5;6;4;Calle de las Canciones, 9;Hotel;2000;56789;56789012-3
+La Torre del Hechicero;Torre misteriosa con vistas al mar;180;200;1;2;2;Acantilado de las Visiones, 1;Apartamento;1400;67890;67890123-4
+El Castillo del Caballero;Imponente castillo con foso y almenas;400;500;3;8;5;Colina de la Épica, 15;Castillo;3000;78901;78901234-5
+La Casa del Druida;Rústica casa de madera en el bosque;100;120;0;2;1;Claro de los Espíritus, 8;Casa;900;89012;89012345-6
+La Mansión del Noble;Elegante mansión con jardines y estanque;600;700;4;10;6;Avenida de los Linajes, 20;Mansión;4000;90123;90123456-7
+El Templo del Clérigo;Santuario sagrado con vitrales y cripta;250;300;0;4;3;Plaza de la Devoción, 4;Templo;1800;01234;01234567-8
