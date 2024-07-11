@@ -11,6 +11,5 @@ class Command(BaseCommand):
         #avanza una línea para omitir encabezados de la tabla
         next(reader)
         for fila in reader:
-            #crear_inmueble('Casa Tradicional', 'Casa de dos pisos en sector regional', 120, 2000, 1, 4, 2, 'Eliodoro Yañez 1642', 'casa', 11000000, 14101, '123456789')
             crear_inmueble(fila[0],fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[8],fila[9],fila[10],fila[11])
             #print(f'{fila[0]} - {fila[1]} - {fila[2]} - {fila[3]} - {fila[4]} - {fila[5]} - {fila[6]} - {fila[7]} - {fila[8]} - {fila[9]} - {fila[10]} - {fila[11]}')
