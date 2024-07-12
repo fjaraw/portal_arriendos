@@ -1,4 +1,4 @@
-from main.models import Comuna, Inmueble, UserProfile
+from main.models import Comuna, Inmueble, UserProfile, Region
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 
@@ -79,3 +79,7 @@ def obtener_inmuebles_comuna(filtro):
     if filtro is None:
         return Inmueble.objects.all().order_by('comuna')
     return Inmueble.objects.filter(nombre__icontains=filtro).order_by('comuna')
+def obtener_inmuebles_region(filtro):
+    if filtro is None:
+        consulta = "select * from main_inmueble as I join main_comuna as C on I.comuna_id = C.cod join main_region as R on C.region_id = R.cod order by R.cod"
+        return Inmueble.objects.raw(consulta)
