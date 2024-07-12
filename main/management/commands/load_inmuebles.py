@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand
 import csv
 from main.services import crear_inmueble
-from main.models import Comuna
 # se ejecuta: python manage.py load_inmuebles
 # se usa solo cuando recién creamos nuestra base de datos
 class Command(BaseCommand):

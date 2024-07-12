@@ -75,3 +75,7 @@ def editar_user(username, first_name, last_name, email, password, direccion, tel
 def eliminar_user(rut):
     usuario = User.objects.get(username=rut)
     usuario.delete()
+def obtener_inmuebles_comuna(filtro):
+    if filtro is None:
+        return Inmueble.objects.all().order_by('comuna')
+    return Inmueble.objects.filter(nombre__icontains=filtro).order_by('comuna')
