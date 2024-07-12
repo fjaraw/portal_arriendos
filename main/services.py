@@ -83,3 +83,4 @@ def obtener_inmuebles_region(filtro):
     if filtro is None:
         consulta = "select * from main_inmueble as I join main_comuna as C on I.comuna_id = C.cod join main_region as R on C.region_id = R.cod order by R.cod"
         return Inmueble.objects.raw(consulta)
+    return Inmueble.objects.filter(nombre__icontains=filtro).order_by('comuna')
