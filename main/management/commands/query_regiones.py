@@ -12,8 +12,8 @@ class Command(BaseCommand):
         inmuebles = obtener_inmuebles_region(filtro_region)
         for inmueble in inmuebles:
             #import pdb; pdb.set_trace()
-            linea = f'{inmueble.nombre}\t{inmueble.descripcion}\t{inmueble.comuna.region.nombre}'
+            linea = f'{inmueble[0]}\t{inmueble[1]}\t{inmueble[2]}'
             archivo.write(linea)
             archivo.write('\n')
-            print(linea)
+            print(inmueble)
         archivo.close()
