@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 #from django.contrib.auth import user
-from main.services import editar_user_sin_password
+from main.services import editar_user_sin_password, cambiar_password
 # Create your views here.
 @login_required
 def home(req):
@@ -17,7 +17,7 @@ def profile(req):
 def edit_user(req):
     #obtener usuario actual
     current_user = req.user
-    if req.POST['telefono'] != '':
+    if req.POST['telefono'].strip() != '':
         editar_user_sin_password(
             current_user.username,
             req.POST['first_name'],
@@ -48,12 +48,7 @@ def edit_user(req):
 def change_password(req):
     password =  req.POST['password']
     pass_repeat =  req.POST['pass_repeat']
-    if password != pass_repeat:
-        messages.error(req, 'Las contraseñas no coinciden.')
-        return redirect('/accounts/profile')
-    req.user.set_password(password)
-    req.user.save()
-    messages.success(req, 'Contraseña actualizada.')
+    cambiar_password(req, password, pass_repeat)
     return redirect('/accounts/profile')
 #pendientes para trabajar con grupos
 # def solo_arrendadores(req):

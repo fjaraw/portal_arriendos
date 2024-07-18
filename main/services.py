@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from django.db.models import Q
 from django.db import connection
+from django.contrib import messages
 
 def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, estacionamientos, habitaciones, bagnos, direccion, tipo_de_inmueble, precio, cod_comuna, rut_propietario):
     comuna = Comuna.objects.get(cod=cod_comuna)
@@ -101,8 +102,16 @@ def editar_user_sin_password(username, first_name, last_name, email, direccion, 
     user.first_name = first_name
     user.last_name = last_name
     user.email = email
+    user.save()
     # 2. Nos traemos el 'user_profile' y modificamos sus datos
     user_profile = UserProfile.objects.get(user=user)
     user_profile.direccion = direccion
     user_profile.telefono = telefono
     user_profile.save()
+def cambiar_password(req, password, pass_repeat):
+    if password != pass_repeat:
+        messages.error(req, 'Las contraseñas no coinciden.')
+        return
+    req.user.set_password(password)
+    req.user.save()
+    messages.success(req, 'Contraseña actualizada.')
