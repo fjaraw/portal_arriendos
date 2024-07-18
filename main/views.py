@@ -44,6 +44,17 @@ def edit_user(req):
     # if req.POST['telefono'] != '':
     #     current_user.usuario.telefono = req.POST['telefono']
     # current_user.usuario.save()
+
+def change_password(req):
+    password =  req.POST['password']
+    pass_repeat =  req.POST['pass_repeat']
+    if password != pass_repeat:
+        messages.error(req, 'Las contraseñas no coinciden.')
+        return redirect('/accounts/profile')
+    req.user.set_password(password)
+    req.user.save()
+    messages.success(req, 'Contraseña actualizada.')
+    return redirect('/accounts/profile')
 #pendientes para trabajar con grupos
 # def solo_arrendadores(req):
 #     return HttpResponse('sólo arrendadores')

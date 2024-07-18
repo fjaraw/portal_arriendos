@@ -4,10 +4,23 @@
     <div class="row">
         <div class="col-3">
             <h3 class="text-center">Cambia tu contraseña</h3>
+            <form action="/accounts/change-pass/" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="*****" required>
+                </div>
+                <div class="mb-3">
+                    <label for="pass_repeat" class="form-label">Repetir Contraseña</label>
+                    <input type="pass_repeat" class="form-control" name="pass_repeat" id="pass_repeat" placeholder="*****" required>
+                </div>
+                <button type="submit" class="btn btn-danger">Guardar Contraseña</button>
+            </form>
         </div>
         <div class="col-5">
             <h3>Editar datos personales</h3>
-            <form action="/edit-user" method="post">
+            <form action="/edit-user/" method="post">
+                {% csrf_token %}
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" name="email" id="email" placeholder="abc@mail.com" value="{{user.email}}" required>
@@ -28,7 +41,7 @@
                     <label for="" class="form-label">Teléfono</label>
                     <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Tu teléfono" value="{% if user.usuario.telefono %}{{user.usuario.telefono}}{% endif %}">
                 </div>
-                <button type="submit" class="btn btn-success">Guardar</button>
+                <button type="submit" class="btn btn-success">Guardar Datos</button>
             </form>
         </div>
         <div class="col-4">
