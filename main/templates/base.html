@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <title>Bienvenido a Portal Arriendos</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
+    {% block css %}
+    {% endblock %}
+    
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            {% block header %}
+            <!-- bloque del header -->
+            {% endblock %}
+            {% block navbar %}
+            <!-- bloque del navbar -->
+                <nav class="navbar navbar-expand-lg  bg-dark" data-bs-theme="dark">>
+                    <div class="container-fluid">
+                        <span class="navbar-brand mb-0 h1">Portal Arriendos</span>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'profile' %}">Mis Datos</a>
+                                </li>
+                            </ul>
+                            {% if user.is_authenticated %}
+                                <form class="d-flex" role="search" method="post" action="{% url 'logout' %}">
+                                    <label for="#" class="text-light">Hola {{user.first_name}} {{user.last_name}}</label>
+                                    {% csrf_token %}
+                                    <button class="btn btn-outline-warning" type="submit">Salir</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </nav>
+            {% endblock %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                        <strong>{{ message }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </header>
+        <main>
+            {% block content %}
+            <!-- bloque content del template base -->
+            {% endblock %}
+        </main>
+        <footer>
+            {% block foooter %}
+            <!-- bloque content del template base -->
+            {% endblock %}
+        </footer>
+    </div>
+
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    {% block js %}
+        <script>
+            setTimeout(function() {
+                $('.fade').fadeOut(1500)
+            }, 3000)
+        </script>
+    {% endblock %}
+</body>
+
+</html>

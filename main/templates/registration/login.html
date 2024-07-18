@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-center my-4">Ingresa a tu cuenta:</h1>
+    <div class="row">
+        {% if form.errors %}
+            <div class="row">
+                <div class="col-4 offset-4">
+                    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                        <strong>Usuario y contraseña no coinciden. Intentalo de nuevo.</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="col-4 offset-4">
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Ingresa tu nombre de usuario:</label>
+                    <input type="text" class="form-control" name="{{ form.username.name }}" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ingresa tu contraseña:</label>
+                    <input type="password" class="form-control" name="{{ form.password.name }}" required>
+                </div>
+                <button type="submit" class="btn btn-success">Ingresar</button>
+            </form>
+        </div>
+        <!--<p>Si no tiene cuenta <a href="/accounts/register">crea una</a></p>-->
+    </div>
+{% endblock %}

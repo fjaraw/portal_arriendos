@@ -89,8 +89,20 @@ def obtener_inmuebles_region(filtro):
     # return Inmueble.objects.filter(nombre__icontains=filtro).order_by('comuna')
     consulta = '''select I.nombre, I.descripcion, R.nombre as region from main_inmueble as I join main_comuna as C on I.comuna_id = C.cod join main_region as R on C.region_id = R.cod order by R.cod'''
     if filtro is not None:
+        filtro = filtro.lower()
         consulta = f'''select I.nombre, I.descripcion, R.nombre as region from main_inmueble as I join main_comuna as C on I.comuna_id = C.cod join main_region as R on C.region_id = R.cod where I.nombre like '%{filtro}%' or I.descripcion like '%{filtro}%' order by R.cod'''
     cursor=connection.cursor()
     cursor.execute(consulta)
     registros = cursor.fetchall()
     return registros
+def editar_user_sin_password(username, first_name, last_name, email, direccion, telefono=None):
+    # 1. Nos traemos el 'user' y modificamos sus datos
+    user = User.objects.get(username=username)
+    user.first_name = first_name
+    user.last_name = last_name
+    user.email = email
+    # 2. Nos traemos el 'user_profile' y modificamos sus datos
+    user_profile = UserProfile.objects.get(user=user)
+    user_profile.direccion = direccion
+    user_profile.telefono = telefono
+    user_profile.save()
