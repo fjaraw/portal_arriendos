@@ -25,28 +25,7 @@
             {% endblock %}
             {% block navbar %}
             <!-- bloque del navbar -->
-                <nav class="navbar navbar-expand-lg  bg-dark" data-bs-theme="dark">>
-                    <div class="container-fluid">
-                        <span class="navbar-brand mb-0 h1">Portal Arriendos</span>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="/">Inicio</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'profile' %}">Mis Datos</a>
-                                </li>
-                            </ul>
-                            {% if user.is_authenticated %}
-                                <form class="d-flex" role="search" method="post" action="{% url 'logout' %}">
-                                    <label for="#" class="text-light">Hola {{user.first_name}} {{user.last_name}}</label>
-                                    {% csrf_token %}
-                                    <button class="btn btn-outline-warning" type="submit">Salir</button>
-                                </form>
-                            {% endif %}
-                        </div>
-                    </div>
-                </nav>
+                {% include 'parts/navbar.html' %}
             {% endblock %}
             {% if messages %}
                 {% for message in messages %}
@@ -65,6 +44,7 @@
         <footer>
             {% block foooter %}
             <!-- bloque content del template base -->
+                {% include 'parts/footer.html' %}
             {% endblock %}
         </footer>
     </div>
