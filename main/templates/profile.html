@@ -41,6 +41,36 @@
                     <label for="" class="form-label">Teléfono</label>
                     <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Tu teléfono" value="{% if user.usuario.telefono %}{{user.usuario.telefono}}{% endif %}">
                 </div>
+                <div class="mb-3">
+                    <div class="form-check form-check-inline">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="rol"
+                            id="arrendador"
+                            value="arrendador"
+                            required
+                            {% if user.usuario.rol == 'arrendador' %}
+                                checked
+                            {% endif %}
+                        />
+                        <label class="form-check-label" for="">Arrendador</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="rol"
+                            id="arrendatario"
+                            value="arrendatario"
+                            required
+                            {% if user.usuario.rol == 'arrendatario' %}
+                                checked
+                            {% endif %}
+                        />
+                        <label class="form-check-label" for="">Arrendatario</label>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-success">Guardar Datos</button>
             </form>
         </div>

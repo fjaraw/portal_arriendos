@@ -24,6 +24,7 @@ def edit_user(req):
             req.POST['last_name'],
             req.POST['email'],
             req.POST['direccion'],
+            req.POST['rol'],
             req.POST['telefono'])
     else:
         editar_user_sin_password(
@@ -31,7 +32,8 @@ def edit_user(req):
             req.POST['first_name'],
             req.POST['last_name'],
             req.POST['email'],
-            req.POST['direccion'])
+            req.POST['direccion'],
+            req.POST['rol'])
     messages.success(req, "Se actualizaron tus datos!")
     return redirect('/')
     #return HttpResponse('Se actualizaron tus datos!')
