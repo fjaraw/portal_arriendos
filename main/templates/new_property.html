@@ -2,7 +2,8 @@
 
 {% block content %}
     <h3 class="text-center">Crea una nueva propiedad</h3>
-    <form action="#">
+    <form action="/create_property/" method="post">
+        {% csrf_token %}
         <div class="row">
             <div class="col-4 p-3">
                 <div class="mb-3">
@@ -15,24 +16,30 @@
                 </div>
                 <div class="mb-3">
                     <label for="m2_construidos" class="form-label">Metros construidos</label>
-                    <input type="number" class="form-control" id="m2_construidos" required placeholder="Mínimo 23 m^2" name="m2_construidos">
+                    <input min="1" type="number" class="form-control" id="m2_construidos" required placeholder="Mínimo 23 m^2" name="m2_construidos">
                 </div>
                 <div class="mb-3">
                     <label for="m2_totales" class="form-label">Metros totales</label>
-                    <input type="number" class="form-control" id="m2_totales" required placeholder="Mínimo 50 m^2" name="m2_totales">
+                    <input min="1" type="number" class="form-control" id="m2_totales" required placeholder="Mínimo 50 m^2" name="m2_totales">
                 </div>
             </div>
             <div class="col-4 p-3">
-                <!-- estacionamientos, habitaciones, bagnos, direccion-->
-                <!--
                 <div class="mb-3">
                     <label for="estacionamientos" class="form-label">N° de estacionamientos</label>
-                    <input type="number" class="form-control" id="estacionamientos" required placeholder="Ingrese cantidad" name="estacionamientos">
+                    <input min="0" value="0" type="number" class="form-control" id="estacionamientos" required placeholder="Ingrese cantidad" name="estacionamientos">
                 </div>
                 <div class="mb-3">
                     <label for="habitaciones" class="form-label">N° de habitaciones</label>
-                    <input type="number" class="form-control" id="habitaciones" required placeholder="Ingrese cantidad" name="habitaciones">
-                </div>-->
+                    <input min="1" value="1" type="number" class="form-control" id="habitaciones" required placeholder="Ingrese cantidad" name="habitaciones">
+                </div>
+                <div class="mb-3">
+                    <label for="bagnos" class="form-label">N° de baños</label>
+                    <input min="1" value="1" type="number" class="form-control" id="bagnos" required placeholder="Ingrese cantidad" name="bagnos">
+                </div>
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" required placeholder="Dirección de la propiedad" name="direccion">
+                </div>
             </div>
             <div class="col-4 p-3">
                 <div class="mb-3">
@@ -65,7 +72,9 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-success">Agregar propiedad</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Agregar propiedad</button>
+        </div>
     </form>
     
 {% endblock %}

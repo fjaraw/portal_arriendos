@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 #from django.contrib.auth import user
-from main.services import editar_user_sin_password, cambiar_password
+from main.services import editar_user_sin_password, cambiar_password, crear_inmueble
 from main.models import Comuna, Inmueble, Region
 # Create your views here.
 @login_required
@@ -52,7 +52,7 @@ def solo_arrendadores(user):
         return False
 # def solo_arrendatarios(req):
 #     return HttpResponse('sólo arrendatarios')
-@login_required
+
 @user_passes_test(solo_arrendadores)
 def new_property(req):
     regiones = Region.objects.all()
@@ -63,3 +63,25 @@ def new_property(req):
         'comunas': comunas
     }
     return render(req, 'new_property.html', context)
+
+@user_passes_test(solo_arrendadores)
+def create_property(req):
+    #obtener rut usuario
+    rut_propietario = req.user.username
+    #se agrega propiedad a la base de datos
+    crear_inmueble(
+        req.POST['nombre'],
+        req.POST['descripcion'],
+        int(req.POST['m2_construidos']),
+        int(req.POST['m2_totales']),
+        int(req.POST['estacionamientos']),
+        int(req.POST['habitaciones']),
+        int(req.POST['bagnos']),
+        req.POST['direccion'],
+        req.POST['tipo_inmueble'],
+        int(req.POST['precio']),
+        req.POST['cod_comuna'],
+        rut_propietario)
+    #return HttpResponse('Propiedad agregada!')
+    messages.success(req, "Su propiedad ha sido agregada!")
+    return redirect('/')
