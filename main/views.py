@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 #from django.contrib.auth import user
 from main.services import editar_user_sin_password, cambiar_password
+from main.models import Comuna, Inmueble, Region
 # Create your views here.
 @login_required
 def home(req):
@@ -17,6 +18,7 @@ def profile(req):
 def edit_user(req):
     #obtener usuario actual
     current_user = req.user
+    #modificar atributos del user
     if req.POST['telefono'].strip() != '':
         editar_user_sin_password(
             current_user.username,
@@ -36,16 +38,6 @@ def edit_user(req):
             req.POST['rol'])
     messages.success(req, "Se actualizaron tus datos!")
     return redirect('/')
-    #return HttpResponse('Se actualizaron tus datos!')
-    #modificar atributos del user
-    # current_user.first_name = req.POST['first_name']
-    # current_user.last_name = req.POST['last_name']
-    # current_user.email = req.POST['email']
-    # #obtener atributos de user_profile a traves del related_naem
-    # current_user.usuario.direccion = req.POST['direccion']
-    # if req.POST['telefono'] != '':
-    #     current_user.usuario.telefono = req.POST['telefono']
-    # current_user.usuario.save()
 
 def change_password(req):
     password =  req.POST['password']
@@ -53,8 +45,21 @@ def change_password(req):
     cambiar_password(req, password, pass_repeat)
     return redirect('/accounts/profile')
 #pendientes para trabajar con grupos
-# def solo_arrendadores(req):
-#     return HttpResponse('sólo arrendadores')
-
+def solo_arrendadores(user):
+    if user.usuario.rol == 'arrendador' or user.is_staff == True:
+        return True
+    else:
+        return False
 # def solo_arrendatarios(req):
 #     return HttpResponse('sólo arrendatarios')
+@login_required
+@user_passes_test(solo_arrendadores)
+def new_property(req):
+    regiones = Region.objects.all()
+    comunas = Comuna.objects.all()
+    context = {
+        'tipos_inmueble': Inmueble.tipo_inmueble,
+        'regiones': regiones,
+        'comunas': comunas
+    }
+    return render(req, 'new_property.html', context)

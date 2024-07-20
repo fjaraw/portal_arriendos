@@ -9,6 +9,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'profile' %}">Mis Datos</a>
                 </li>
+                {% if user.usuario.rol == 'arrendador' or user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'new_property' %}">Agregar Propiedad</a>
+                    </li>
+                {% endif %}
             </ul>
             {% if user.is_authenticated %}
                 <form class="d-flex" role="search" method="post" action="{% url 'logout' %}">

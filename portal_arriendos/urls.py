@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from main.views import home, profile, edit_user, change_password
+from main.views import home, profile, edit_user, change_password, new_property
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +25,7 @@ urlpatterns = [
     path('accounts/profile/', profile, name='profile'),
     path('edit-user/', edit_user , name ='edit_user'),
     path('accounts/change-pass/', change_password , name ='change_password'),
+    path('new_property/', new_property , name ='new_property'),
     # Estas son parte de la clase de hoy, no del proyecto
     #path('arrendadores/', solo_arrendadores, name='solo_arrendadores'),
     #path('arrendatarios/', solo_arrendatarios, name='solo_arrendatarios'),
