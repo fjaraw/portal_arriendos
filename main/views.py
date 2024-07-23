@@ -3,8 +3,9 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 #from django.contrib.auth import user
-from main.services import editar_user_sin_password, cambiar_password, crear_inmueble
+from main.services import editar_user_sin_password, cambiar_password, crear_inmueble, editar_inmueble
 from main.models import Comuna, Inmueble, Region
+#from main.forms import InmuebleForm
 # Create your views here.
 @login_required
 def home(req):
@@ -85,3 +86,60 @@ def create_property(req):
     #return HttpResponse('Propiedad agregada!')
     messages.success(req, "Su propiedad ha sido agregada!")
     return redirect('/')
+
+@user_passes_test(solo_arrendadores)
+def edit_property(req, id):
+    if req.method == 'GET':
+        #obtener inmueble a editar
+        inmueble = Inmueble.objects.get(id=id)
+        regiones = Region.objects.all()
+        comunas = Comuna.objects.all()
+        cod_region = inmueble.comuna.region.cod
+        #crear ModelForm
+        #form = InmuebleForm(instance=inmueble)
+        #variable usada para poblar el template con la info del inmueble
+        context = {
+            'inmueble': inmueble,
+            'regiones': regiones,
+            'comunas': comunas,
+            'cod_region': cod_region
+        }
+        return render(req, 'edit_property.html', context)
+    # rut_propietario = req.user.username
+    # editar_inmueble(
+    #     id,
+    #     req.POST['nombre'],
+    #     req.POST['descripcion'],
+    #     int(req.POST['m2_construidos']),
+    #     int(req.POST['m2_totales']),
+    #     int(req.POST['estacionamientos']),
+    #     int(req.POST['habitaciones']),
+    #     int(req.POST['bagnos']),
+    #     req.POST['direccion'],
+    #     req.POST['tipo_inmueble'],
+    #     int(req.POST['precio']),
+    #     req.POST['cod_comuna'],
+    #     rut_propietario)
+    # messages.success(req, "Cambios guardados con éxito!")
+    # return redirect('/')
+    else:
+        # rut_propietario = req.user.username
+        # editar_inmueble(
+        #     id,
+        #     req.POST['nombre'],
+        #     req.POST['descripcion'],
+        #     int(req.POST['m2_construidos']),
+        #     int(req.POST['m2_totales']),
+        #     int(req.POST['estacionamientos']),
+        #     int(req.POST['habitaciones']),
+        #     int(req.POST['bagnos']),
+        #     req.POST['direccion'],
+        #     req.POST['tipo_inmueble'],
+        #     int(req.POST['precio']),
+        #     req.POST['cod_comuna'],
+        #     rut_propietario)
+        # messages.success(req, "Cambios guardados con éxito!")
+        # return redirect('/')
+        return HttpResponse('es un POST')
+        
+    
