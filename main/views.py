@@ -94,7 +94,7 @@ def edit_property(req, id):
         inmueble = Inmueble.objects.get(id=id)
         regiones = Region.objects.all()
         comunas = Comuna.objects.all()
-        cod_region = inmueble.comuna.region.cod
+        cod_region = inmueble.comuna_id[0:2]
         #crear ModelForm
         #form = InmuebleForm(instance=inmueble)
         #variable usada para poblar el template con la info del inmueble
@@ -105,6 +105,25 @@ def edit_property(req, id):
             'cod_region': cod_region
         }
         return render(req, 'edit_property.html', context)
+    else:
+        rut_propietario = req.user.username
+        editar_inmueble(
+            id,
+            req.POST['nombre'],
+            req.POST['descripcion'],
+            int(req.POST['m2_construidos']),
+            int(req.POST['m2_totales']),
+            int(req.POST['estacionamientos']),
+            int(req.POST['habitaciones']),
+            int(req.POST['bagnos']),
+            req.POST['direccion'],
+            req.POST['tipo_inmueble'],
+            int(req.POST['precio']),
+            req.POST['cod_comuna'],
+            rut_propietario)
+        messages.success(req, "Cambios guardados con éxito!")
+        return redirect('/')
+        # return HttpResponse('es un POST')
     # rut_propietario = req.user.username
     # editar_inmueble(
     #     id,
@@ -122,24 +141,5 @@ def edit_property(req, id):
     #     rut_propietario)
     # messages.success(req, "Cambios guardados con éxito!")
     # return redirect('/')
-    else:
-        # rut_propietario = req.user.username
-        # editar_inmueble(
-        #     id,
-        #     req.POST['nombre'],
-        #     req.POST['descripcion'],
-        #     int(req.POST['m2_construidos']),
-        #     int(req.POST['m2_totales']),
-        #     int(req.POST['estacionamientos']),
-        #     int(req.POST['habitaciones']),
-        #     int(req.POST['bagnos']),
-        #     req.POST['direccion'],
-        #     req.POST['tipo_inmueble'],
-        #     int(req.POST['precio']),
-        #     req.POST['cod_comuna'],
-        #     rut_propietario)
-        # messages.success(req, "Cambios guardados con éxito!")
-        # return redirect('/')
-        return HttpResponse('es un POST')
         
     
