@@ -153,7 +153,7 @@ def profile(req):
     context = {
         'mis_inmuebles': mis_inmuebles
     }
-    print(mis_inmuebles)
+    # print(mis_inmuebles)
     return render(req, 'profile.html', context)
 
 @user_passes_test(solo_arrendadores)

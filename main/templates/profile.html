@@ -93,8 +93,8 @@
                             <a href="{% url 'edit_property' id=inmueble.id %}" class="p-1">
                                 <i class="bi bi-pencil-fill"></i>
                             </a>
-                            <a href="{% url 'delete_property' id=inmueble.id %}" class="p-1 text-danger">
-                                <i class="bi bi-trash-fill"></i>
+                            <a href="#" class="p-1 text-danger" onclick="eliminar(event)">
+                                <i class="bi bi-trash-fill" id="{{inmueble.id}}"></i>
                             </a>
                         </div>
                     </li>
@@ -104,4 +104,22 @@
             </ul>
         </div>
     </div>
+{% endblock %}
+{%block js %}
+    <script>
+        function eliminar(event) {
+            //evita que enlace redirija
+            event.preventDefault()
+            //recuperar href del enlace clickeado
+            const id = event.target.id
+            const url = '/delete_property/' + id + '/'
+            //pedir confirmación de eliminar propiedad
+            //console.log("Borrando inmueble " + id)
+            const confirmacion = confirm('¿Desea eliminar inmueble?')
+            if (confirmacion == true){
+                //redireccion a url
+                window.location.href = url
+            }
+        }
+    </script>
 {% endblock %}
