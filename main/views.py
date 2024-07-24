@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 #from django.contrib.auth import user
-from main.services import editar_user_sin_password, cambiar_password, crear_inmueble, editar_inmueble
+from main.services import editar_user_sin_password, cambiar_password, crear_inmueble, editar_inmueble, eliminar_inmueble
 from main.models import Comuna, Inmueble, Region
 #from main.forms import InmuebleForm
 # Create your views here.
@@ -141,5 +141,23 @@ def edit_property(req, id):
     #     rut_propietario)
     # messages.success(req, "Cambios guardados con éxito!")
     # return redirect('/')
-        
-    
+
+@user_passes_test(solo_arrendadores)
+def profile(req):
+    user = req.user
+    mis_inmuebles = None
+    if user.usuario.rol == 'arrendador':
+        mis_inmuebles = user.inmuebles.all()
+    elif user.usuario.rol == 'arrendatario':
+        pass
+    context = {
+        'mis_inmuebles': mis_inmuebles
+    }
+    print(mis_inmuebles)
+    return render(req, 'profile.html', context)
+
+@user_passes_test(solo_arrendadores)
+def delete_property(req,id):
+    eliminar_inmueble(id)
+    messages.error(req, 'Inmueble ha sido eliminado.')
+    return redirect('/accounts/profile')
