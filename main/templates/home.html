@@ -1,5 +1,73 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Páginal inicial</h2>
+    <!-- <h2>Páginal inicial</h2> -->
+    <div class="row">
+        <div class="col-4">
+            <h3 class="text-center">Filtra las propiedades</h3>
+            {% csrf_token %}
+            <form action="#" method="post">
+                <div class="mb-3">
+                    <label for="region_cod" class="form-label">Región</label>
+                    <select class="form-select" required name="region_cod" id="region_cod">
+                        <option value>Selecciona una región</option>
+                        {% for region in regiones %}
+                            <option value="{{ region.cod }}">{{ region.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="cod_comuna" class="form-label">Comuna</label>
+                    <select class="form-select" required name="cod_comuna" id="cod_comuna">
+                        <option value>Selecciona una comuna</option>
+                        {% for comuna in comunas %}
+                            <option value="{{ comuna.cod }}">{{ comuna.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="palabra" class="form-label">Palabra</label>
+                    <input type="text" class="form-control" name="palabra" id="palabra">
+                </div>
+                <input type="submit" value="Buscar" class="btn btn-success">
+            </form>
+        </div>
+        <div class="col-8">
+            <h3 class="text-center">Lista de propiedades</h3>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                                card's content.</p>
+                        </div>
+                        <div class="col-4">
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js%}
+    <script>
+        function filtrar_comunas(){
+            //se obtene valor de region seleccionada
+            const cod_seleccionado = $(this).val()
+            //iterar sobre todas las comunas y mostrar solo las corrrespondientes a la region seleccionada, se verifica por prefijo del codigo de comuna
+            $('#cod_comuna option').each(function() {
+                const comuna = $(this)
+                const cod_comuna = comuna.val()
+                if (cod_seleccionado == cod_comuna.substring(0,2)){
+                    comuna.show()
+                } else {
+                    comuna.hide()
+                }
+            })
+        }
+        $('#region_cod').on('change', filtrar_comunas)
+    </script>
 {% endblock %}

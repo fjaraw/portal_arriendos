@@ -9,7 +9,13 @@ from main.models import Comuna, Inmueble, Region
 # Create your views here.
 @login_required
 def home(req):
-    return render(req, 'home.html')
+    comunas = Comuna.objects.all()
+    regiones = Region.objects.all()
+    context = {
+        'comunas': comunas,
+        'regiones': regiones
+    }
+    return render(req, 'home.html', context)
 
 @login_required
 def profile(req):
