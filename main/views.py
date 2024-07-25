@@ -26,14 +26,20 @@ def home(req):
 # función para filtrar busqueda de inmuebles en página de inicio
 def filtrar_inmuebles(region_cod,cod_comuna,palabra):
     #caso 1: cod_comuna != ''
-    #caso 2: cod_comuna == '' and region_cod != ''
-    #caso 2: cod_comuna == '' and region_cod == ''
     if cod_comuna != '':
         comuna = Comuna.objects.get(cod=cod_comuna)
         return Inmueble.objects.filter(comuna=comuna)
-    # if cod_comuna == '' and region_cod != '':
-    inmuebles = Inmueble.objects.all()
-    return inmuebles
+    #caso 2: cod_comuna == '' and region_cod != ''
+    elif cod_comuna == '' and region_cod != '':
+        region = Region.objects.get(cod=region_cod)
+        comunas = Comuna.objects.filter(region=region)
+        return Inmueble.objects.filter(comuna__in=comunas, nombre__icontains=palabra)
+    #caso 3: cod_comuna == '' and region_cod == ''
+    else:
+        return Inmueble.objects.filter(nombre__icontains=palabra)
+    # inmuebles = Inmueble.objects.all()
+    # return inmuebles
+    return Inmueble.objects.all()
 
 @login_required
 def profile(req):
