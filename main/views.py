@@ -9,13 +9,31 @@ from main.models import Comuna, Inmueble, Region
 # Create your views here.
 @login_required
 def home(req):
+    datos = req.GET
+    region_cod = datos.get('region_cod', '')
+    cod_comuna = datos.get('cod_comuna', '')
+    palabra = datos.get('palabra', '')
+    #print(region_cod,cod_comuna,palabra)
+    inmuebles = filtrar_inmuebles(region_cod,cod_comuna,palabra)
     comunas = Comuna.objects.all()
     regiones = Region.objects.all()
     context = {
+        'inmuebles': inmuebles,
         'comunas': comunas,
         'regiones': regiones
     }
     return render(req, 'home.html', context)
+# función para filtrar busqueda de inmuebles en página de inicio
+def filtrar_inmuebles(region_cod,cod_comuna,palabra):
+    #caso 1: cod_comuna != ''
+    #caso 2: cod_comuna == '' and region_cod != ''
+    #caso 2: cod_comuna == '' and region_cod == ''
+    if cod_comuna != '':
+        comuna = Comuna.objects.get(cod=cod_comuna)
+        return Inmueble.objects.filter(comuna=comuna)
+    # if cod_comuna == '' and region_cod != '':
+    inmuebles = Inmueble.objects.all()
+    return inmuebles
 
 @login_required
 def profile(req):
