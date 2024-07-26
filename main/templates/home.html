@@ -43,11 +43,13 @@
                                 <p class="card-text">{{ inmueble.descripcion }}</p>
                             </div>
                             <div class="col-4">
-                                <a href="#" class="btn btn-primary">Ver detalle</a>
+                                <a href="{% url 'detail_property' id=inmueble.id %}" class="btn btn-primary">Ver detalle</a>
                             </div>
                         </div>
                     </div>
                 </div>
+            {% empty %}
+                <p class="fs-4 mt-5 text-center">No se han encontrado propiedades para esos filtros</p>
             {% endfor %}
         </div>
     </div>

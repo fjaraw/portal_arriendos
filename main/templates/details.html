@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-3">
+    <h5 class="text-center">{{ inmueble.nombre }}</h5>
+    <!-- <p>{{ inmueble.descripcion }}</p> -->
+    <!-- <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ inmueble.direccion }}</li>
+        <li class="list-group-item">$ {{ inmueble.precio }}</li>
+    </ul> -->
+    <div class="card">
+        <h4 class="card-header">Características</h4>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{ inmueble.descripcion }}</li>
+                        <li class="list-group-item">Metros construidos: {{ inmueble.m2_construidos }}</li>
+                        <li class="list-group-item">Metros totales: {{ inmueble.m2_totales }}</li>
+                        <li class="list-group-item">Dirección: {{ inmueble.direccion }} - {{ inmueble.comuna.nombre }} </li>
+                    </ul>
+                </div>
+                <div class="col-6">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Tipo: {{ inmueble.tipo_de_inmueble }}</li>
+                        <li class="list-group-item">Número de habitaciones: {{ inmueble.habitaciones }}</li>
+                        <li class="list-group-item">Número de baños: {{ inmueble.bagnos }}</li>
+                        <li class="list-group-item">Propietario: {{ inmueble.propietario.first_name }} {{ inmueble.propietario.last_name }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-body-secondary text-center">
+            Precio: $ {{ inmueble.precio }}
+        </div>
+    </div>
+</div>
+{% endblock %}

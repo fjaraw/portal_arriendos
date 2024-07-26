@@ -90,6 +90,9 @@
                         <h5>{{ inmueble.nombre }}</h5>
                         <div class="d-flex justify-content-between">
                             <span>$ {{ inmueble.precio }} por mes</span>
+                            <a href="{% url 'detail_property' id=inmueble.id %}" class="p-1 text-success">
+                                <i class="bi bi-card-text"></i>
+                            </a>
                             <a href="{% url 'edit_property' id=inmueble.id %}" class="p-1">
                                 <i class="bi bi-pencil-fill"></i>
                             </a>

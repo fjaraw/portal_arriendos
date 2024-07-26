@@ -26,7 +26,6 @@ def home(req):
     return render(req, 'home.html', context)
 # función para filtrar busqueda de inmuebles en página de inicio
 def filtrar_inmuebles(region_cod,cod_comuna,palabra):
-    #caso 1: cod_comuna != ''
     filtro_palabra = None
     if palabra!= '':
         filtro_palabra = Q(nombre__icontains= palabra) | Q(descripcion__icontains= palabra)
@@ -178,6 +177,20 @@ def edit_property(req, id):
     #     rut_propietario)
     # messages.success(req, "Cambios guardados con éxito!")
     # return redirect('/')
+
+@login_required
+def detail_property(req, id):
+    id  = int(id)
+    inmueble_encontrado = None
+    inmuebles = Inmueble.objects.all()
+    for inmueble in inmuebles:
+        if inmueble.id == id:
+            inmueble_encontrado = inmueble
+            break
+    context = {
+        'inmueble': inmueble_encontrado
+    }
+    return render(req, 'details.html', context)
 
 @user_passes_test(solo_arrendadores)
 def profile(req):
