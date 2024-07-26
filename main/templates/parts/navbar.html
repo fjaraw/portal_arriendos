@@ -17,9 +17,9 @@
             </ul>
             {% if user.is_authenticated %}
                 <form class="d-flex" role="search" method="post" action="{% url 'logout' %}">
-                    <label for="#" class="text-light">Hola {{user.first_name}} {{user.last_name}}</label>
+                    <label for="#" class="text-light m-1">Hola {{user.first_name}} {{user.last_name}}</label>
                     {% csrf_token %}
-                    <button class="btn btn-outline-warning" type="submit">Salir</button>
+                    <button class="btn btn-danger ms-2 btn-sm" type="submit">Cerrar Sesión</button>
                 </form>
             {% endif %}
         </div>

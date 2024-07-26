@@ -41,6 +41,7 @@
                             <div class="col-8">
                                 <h5 class="card-title">{{ inmueble.nombre }}</h5>
                                 <p class="card-text">{{ inmueble.descripcion }}</p>
+                                <p class="card-text">{{ inmueble.comuna }}</p>
                             </div>
                             <div class="col-4">
                                 <a href="{% url 'detail_property' id=inmueble.id %}" class="btn btn-primary">Ver detalle</a>
@@ -49,7 +50,7 @@
                     </div>
                 </div>
             {% empty %}
-                <p class="fs-4 mt-5 text-center">No se han encontrado propiedades para esos filtros</p>
+                <p class="fs-4 mt-5 text-center text-danger">No se han encontrado propiedades para esos filtros</p>
             {% endfor %}
         </div>
     </div>
