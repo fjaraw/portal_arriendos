@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
+from django.db.models import Q
 #from django.contrib.auth import user
 from main.services import editar_user_sin_password, cambiar_password, crear_inmueble, editar_inmueble, eliminar_inmueble
 from main.models import Comuna, Inmueble, Region
@@ -26,20 +27,26 @@ def home(req):
 # función para filtrar busqueda de inmuebles en página de inicio
 def filtrar_inmuebles(region_cod,cod_comuna,palabra):
     #caso 1: cod_comuna != ''
+    filtro_palabra = None
+    if palabra!= '':
+        filtro_palabra = Q(nombre__icontains= palabra) | Q(descripcion__icontains= palabra)
+    filtro_ubicacion = None
     if cod_comuna != '':
         comuna = Comuna.objects.get(cod=cod_comuna)
-        return Inmueble.objects.filter(comuna=comuna)
-    #caso 2: cod_comuna == '' and region_cod != ''
-    elif cod_comuna == '' and region_cod != '':
+        filtro_ubicacion = Q(comuna=comuna)
+    elif region_cod != '':
         region = Region.objects.get(cod=region_cod)
-        comunas = Comuna.objects.filter(region=region)
-        return Inmueble.objects.filter(comuna__in=comunas, nombre__icontains=palabra)
-    #caso 3: cod_comuna == '' and region_cod == ''
-    else:
-        return Inmueble.objects.filter(nombre__icontains=palabra)
-    # inmuebles = Inmueble.objects.all()
-    # return inmuebles
-    return Inmueble.objects.all()
+        comunas_region = region.comunas.all()
+        filtro_ubicacion = Q(comuna__in=comunas_region)
+    
+    if filtro_ubicacion is None and filtro_palabra is None:
+        return Inmueble.objects.all()
+    elif filtro_ubicacion is not None and filtro_palabra is None:
+        return Inmueble.objects.filter(filtro_ubicacion)
+    elif filtro_ubicacion is None and filtro_palabra is not None:
+        return Inmueble.objects.filter(filtro_palabra)
+    elif filtro_ubicacion is not None and filtro_palabra is not None:
+        return Inmueble.objects.filter(filtro_palabra & filtro_ubicacion)
 
 @login_required
 def profile(req):
